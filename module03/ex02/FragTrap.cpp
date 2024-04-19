@@ -51,6 +51,7 @@ FragTrap &FragTrap::operator=(FragTrap &copy)
 //     }
     
 // }
+
 void FragTrap::attack(const std::string& target)
 {
     if(this->EnergyPoints <= 0 || this->HitPoints <= 0)
@@ -61,11 +62,10 @@ void FragTrap::attack(const std::string& target)
     else
     {
         this->EnergyPoints--;
-        std::cout << "FragTrap " << this->name << " attackssss" << target << this->AttakDamage << " points of damage!" << std::endl;
+        std::cout << "FragTrap " << this->name << " attacks" << target << this->AttakDamage << " points of damage!" << std::endl;
     }
     
 }
-
 
 void FragTrap::highFivesGuys( void )
 {

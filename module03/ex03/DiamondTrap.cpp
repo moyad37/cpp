@@ -23,7 +23,7 @@ DiamondTrap& DiamondTrap::operator=(DiamondTrap& copy)
     std::cout << "DiamondTrap Copy assignment Operator" << std::endl;
     this->name = copy.name;
     FragTrap::name = name + "_clap_name";
-    this->FragTrap::EnergyPoints = copy.FragTrap::EnergyPoints;
+    this->ScavTrap::EnergyPoints = copy.ScavTrap::EnergyPoints;
     this->FragTrap::AttakDamage = copy.FragTrap::AttakDamage;
     this->FragTrap::HitPoints = copy.FragTrap::HitPoints;
     return *this;

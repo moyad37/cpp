@@ -27,12 +27,10 @@ ScavTrap::ScavTrap(ScavTrap &copy)
 
 ScavTrap &ScavTrap::operator=(ScavTrap &copy)
 {
-     if (this != &copy)
+    if (this != &copy)
     {
         ClapTrap::operator=(copy);
-        std::cout << "ScavTrap constructor(operator) called" << std::endl;
     }
-    return (*this);
     // this->name = copy.name;
     // this->HitPoints = copy.HitPoints;
     // this->EnergyPoints = copy.EnergyPoints;
@@ -66,7 +64,7 @@ void ScavTrap::attack(const std::string& target)
 //     {
 //         this->HitPoints -= amount;
 //     }
-//         std::cout << "ClapTrap " << this->name << " damaged " << amount << " points from damage" << std::endl;
+//         std::cout << "ScavTrap " << this->name << " damaged " << amount << " points from damage" << std::endl;
 // }
 
 // void ScavTrap::beRepaired(unsigned int amount)
@@ -75,7 +73,7 @@ void ScavTrap::attack(const std::string& target)
 // 		return ;
 //     if(this->EnergyPoints <= 0 )
 //     {
-//         std::cout << "ClapTrap " << this->name << " has no EnergyPoints" << std::endl;
+//         std::cout << "ScavTrap " << this->name << " has no EnergyPoints" << std::endl;
 //         return ;
 //     }
 //     else
@@ -87,7 +85,7 @@ void ScavTrap::attack(const std::string& target)
 //         {
 //             this->HitPoints += amount;
 //         }
-//         std::cout << "ClapTrap " << this->name << " repaired his self  " << amount << " points from Hit Points " << std::endl;
+//         std::cout << "ScavTrap " << this->name << " repaired his self  " << amount << " points from Hit Points " << std::endl;
 
 //     }
 // }

@@ -101,4 +101,3 @@ ScavTrap::~ScavTrap()
 {
     std::cout << "ScavTrap Destractor called" << std::endl;
 }
-
