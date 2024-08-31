@@ -10,19 +10,19 @@
 int main( void )
 {
 
-    const Animal* meta = new Animal();
+    const Animal* tier = new Animal();
     const Animal* j = new Dog();
     const Animal* i = new Cat();
     std::cout << j->getType() << " " << std::endl;
     std::cout << i->getType() << " " << std::endl;
     i->makeSound(); //will output the cat sound!
     j->makeSound();
-    meta->makeSound();
+    tier->makeSound();
 
-    delete  meta;
+    delete  tier;
     delete  j;
     delete  i;
-
+    
     const WrongAnimal *wrong = new WrongAnimal();
     const WrongAnimal *wrongCat = new WrongCat();
 	

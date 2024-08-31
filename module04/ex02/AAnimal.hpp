@@ -8,17 +8,17 @@
 
 class AAnimal
 {	
-	public:
+	protected:
 		AAnimal();
 		AAnimal(const AAnimal& copy);
 		AAnimal& operator=(const AAnimal& copy);
 		
-		std::string const& getType(void) const;
-		virtual void makeSound() const;
 		virtual ~AAnimal();
-
-	protected:
 		std::string type;
+
+	public:
+		std::string const& getType(void) const;
+		virtual void makeSound() const = 0;
 		
 };
 

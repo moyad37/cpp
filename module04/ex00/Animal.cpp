@@ -29,5 +29,5 @@ std::string const& Animal::getType() const {
 }
 
 void Animal::makeSound() const {
-    std::cout << "Keine makeSound von calsse Animal" << std::endl;
+    std::cout << "No makeSound from calss Animal" << std::endl;
 }
