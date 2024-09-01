@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   AForm.hpp                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mmanssou <mmanssou@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/01 15:45:12 by mmanssou          #+#    #+#             */
+/*   Updated: 2024/09/01 15:55:49 by mmanssou         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef AFORM_HPP
 #define AFORM_HPP
 
@@ -6,7 +18,7 @@
 #include <string>
 #include "Bureaucrat.hpp"
 
-class Bureaucrat; // Forward declaration
+class Bureaucrat;
 
 class AForm {
 public:
@@ -50,4 +62,4 @@ private:
 
 std::ostream& operator<<(std::ostream& os, const AForm& form);
 
-#endif // AFORM_HPP
+#endif

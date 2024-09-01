@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ShrubberyCreationForm.cpp                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mmanssou <mmanssou@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/01 15:46:44 by mmanssou          #+#    #+#             */
+/*   Updated: 2024/09/01 16:08:49 by mmanssou         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ShrubberyCreationForm.hpp"
 #include <fstream>
 #include <iostream>
@@ -15,10 +27,22 @@ void ShrubberyCreationForm::execute(Bureaucrat const & executor) const {
         throw GradeTooLowException();
     }
 
-    std::ofstream outFile((target + "_shrubbery").c_str()); // Use c_str() to convert std::string to const char*
+    std::ofstream outFile((target + "_shrubbery").c_str());
 
     if (outFile.is_open()) {
-        outFile << "ASCII Tree" << std::endl; // Simplified output
+        outFile << "      # #### ####      " << std::endl;
+        outFile << "     ### /#|### |/####     " << std::endl;
+        outFile << "    ##/#/ ||/##/_/##/_#    " << std::endl;
+        outFile << "   ###  /###|/ / # ###   " << std::endl;
+        outFile << "  ##__#_## | #/###_/_####  " << std::endl;
+        outFile << " ## #### #  #| /  #### ##/## " << std::endl;
+        outFile << " __#_--###`  |{,###---###-~" << std::endl;
+        outFile << "             }}{      " << std::endl;
+        outFile << "             }}{      " << std::endl;
+        outFile << "             }}{      " << std::endl;
+        outFile << "        ejm  {{}      " << std::endl;
+        outFile << "        , -=-~{ .-^- _      " << std::endl;
+
         outFile.close();
     } else {
         std::cerr << "Failed to open file for writing." << std::endl;
