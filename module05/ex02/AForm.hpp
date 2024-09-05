@@ -6,7 +6,7 @@
 /*   By: mmanssou <mmanssou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 15:45:12 by mmanssou          #+#    #+#             */
-/*   Updated: 2024/09/01 15:55:49 by mmanssou         ###   ########.fr       */
+/*   Updated: 2024/09/03 13:55:52 by mmanssou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ public:
     int getExecGrade() const;
 
     void beSigned(const Bureaucrat& bureaucrat);
-    virtual void execute(Bureaucrat const & executor) const = 0; // Pure virtual function
+    virtual void execute(Bureaucrat const & executor) const = 0;
 
     class GradeTooHighException : public std::exception {
     public:

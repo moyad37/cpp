@@ -5,35 +5,35 @@
 #                                                     +:+ +:+         +:+      #
 #    By: mmanssou <mmanssou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/08/31 16:58:15 by mmanssou          #+#    #+#              #
-#    Updated: 2024/09/03 14:10:20 by mmanssou         ###   ########.fr        #
+#    Created: 2024/09/05 13:33:13 by mmanssou          #+#    #+#              #
+#    Updated: 2024/09/05 13:51:27 by mmanssou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = BureaucratProgram
+CXX = c++
+CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 
-SRC = main.cpp Bureaucrat.cpp Form.cpp
-OBJ = $(SRC:.cpp=.o)
-INC		=	Bureaucrat.hpp Form.hpp
-FLAGS = -Wall -Wextra -Werror -std=c++98
+# Executable
+NAME = serialize_test
 
+# Source Files
+SRCS = main.cpp
 
+# Object Files
+OBJS = $(SRCS:.cpp=.o)
 
-all :	$(NAME)
+# Rules
+all: $(NAME)
 
-%.o	:	%.cpp $(INC)
-	@c++ $(FLAGS) -c $<
-
-$(NAME) :	$(OBJ)
-	@c++ $(OBJ) -o $(NAME)
-	@echo "Make Ok"
+$(NAME): $(OBJS)
+	$(CXX) $(CXXFLAGS) -o $(NAME) $(OBJS)
 
 clean:
-	@rm -f $(OBJ)
-	@echo "clean Ok"
+	rm -f $(OBJS)
 
-fclean :	clean
-	@rm -f $(NAME)
-	@echo "fclean Ok"
+fclean: clean
+	rm -f $(NAME)
 
-re :	fclean all
+re: fclean all
+
+.PHONY: all clean fclean re

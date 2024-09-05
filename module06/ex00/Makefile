@@ -5,35 +5,28 @@
 #                                                     +:+ +:+         +:+      #
 #    By: mmanssou <mmanssou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/08/31 16:58:15 by mmanssou          #+#    #+#              #
-#    Updated: 2024/09/03 14:10:20 by mmanssou         ###   ########.fr        #
+#    Created: 2024/09/05 13:33:13 by mmanssou          #+#    #+#              #
+#    Updated: 2024/09/05 13:33:23 by mmanssou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = BureaucratProgram
+NAME = convert
 
-SRC = main.cpp Bureaucrat.cpp Form.cpp
+CXX = c++
+CXXFLAGS = -Wall -Wextra -Werror -std=c++98
+
+SRC = main.cpp ScalarConverter.cpp
 OBJ = $(SRC:.cpp=.o)
-INC		=	Bureaucrat.hpp Form.hpp
-FLAGS = -Wall -Wextra -Werror -std=c++98
 
+all: $(NAME)
 
-
-all :	$(NAME)
-
-%.o	:	%.cpp $(INC)
-	@c++ $(FLAGS) -c $<
-
-$(NAME) :	$(OBJ)
-	@c++ $(OBJ) -o $(NAME)
-	@echo "Make Ok"
+$(NAME): $(OBJ)
+	$(CXX) $(CXXFLAGS) -o $(NAME) $(OBJ)
 
 clean:
-	@rm -f $(OBJ)
-	@echo "clean Ok"
+	rm -f $(OBJ)
 
-fclean :	clean
-	@rm -f $(NAME)
-	@echo "fclean Ok"
+fclean: clean
+	rm -f $(NAME)
 
-re :	fclean all
+re: fclean all
