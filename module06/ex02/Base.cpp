@@ -6,13 +6,11 @@
 /*   By: mmanssou <mmanssou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 13:59:21 by mmanssou          #+#    #+#             */
-/*   Updated: 2024/09/05 14:03:58 by mmanssou         ###   ########.fr       */
+/*   Updated: 2024/09/06 21:48:53 by mmanssou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Base.hpp"
 
-Base::~Base() {
-    // Virtueller Destruktor, Implementierung leer
-}
+Base::~Base() {}
 

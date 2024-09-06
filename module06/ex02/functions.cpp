@@ -6,7 +6,7 @@
 /*   By: mmanssou <mmanssou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 13:58:55 by mmanssou          #+#    #+#             */
-/*   Updated: 2024/09/05 14:07:54 by mmanssou         ###   ########.fr       */
+/*   Updated: 2024/09/06 21:47:39 by mmanssou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,12 @@
 Base* generate(void) {
     // Initialisiere den Zufallszahlengenerator
     srand(static_cast<unsigned int>(time(0)));
-
-    int random = rand() % 3;
-    if (random == 0)
+    
+    int random = rand();
+    float j = random % 3;
+    if (j == 0)
         return new A();
-    else if (random == 1)
+    else if (j == 1)
         return new B();
     else
         return new C();
@@ -33,9 +34,9 @@ Base* generate(void) {
 
 void identify(Base* p) {
     if (p)
-        p->identify();  // Aufruf der virtuellen Methode
+        p->identify();
 }
 
 void identify(Base& p) {
-    p.identify();  // Aufruf der virtuellen Methode
+    p.identify();
 }

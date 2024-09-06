@@ -6,7 +6,7 @@
 /*   By: mmanssou <mmanssou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 13:59:16 by mmanssou          #+#    #+#             */
-/*   Updated: 2024/09/05 14:04:15 by mmanssou         ###   ########.fr       */
+/*   Updated: 2024/09/06 21:48:10 by mmanssou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 class A : public Base {
 public:
-    void identify() const;  // Überschreibe die virtuelle Methode
+    void identify() const;
 };
 
 #endif
