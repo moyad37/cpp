@@ -6,7 +6,7 @@
 /*   By: mmanssou <mmanssou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 13:43:42 by mmanssou          #+#    #+#             */
-/*   Updated: 2024/09/06 22:01:31 by mmanssou         ###   ########.fr       */
+/*   Updated: 2024/09/12 19:45:18 by mmanssou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,23 @@
 
 #include "Data.hpp"
 
+#include <string>
+#include <iostream>
+#include <stdint.h> 
+
+
 class Serializer {
 public:
-    static unsigned long serialize(Data* ptr) {
-        return reinterpret_cast<unsigned long>(ptr);
-    }
-    static Data* deserialize(unsigned long raw) {
-        return reinterpret_cast<Data*>(raw);
-    }
+        static uintptr_t serialize(Data* ptr);
+        static Data* deserialize(uintptr_t raw);
 
 private:
     Serializer();
     Serializer(const Serializer&);
     Serializer& operator=(const Serializer&);
+    ~Serializer();
 };
 
 #endif
+
+

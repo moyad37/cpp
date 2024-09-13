@@ -6,7 +6,7 @@
 /*   By: mmanssou <mmanssou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 13:32:51 by mmanssou          #+#    #+#             */
-/*   Updated: 2024/09/05 13:32:55 by mmanssou         ###   ########.fr       */
+/*   Updated: 2024/09/12 20:07:40 by mmanssou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 #include <climits>
 #include <cfloat>
 #include <cmath>
-#include <limits>
 
 ScalarConverter::ScalarConverter() {}
 ScalarConverter::ScalarConverter(const ScalarConverter&) {}
@@ -31,7 +30,6 @@ bool ScalarConverter::isFloatLiteral(const std::string& literal) {
 }
 
 void ScalarConverter::convert(const std::string& literal) {
-    // Detect if the input is a pseudo literal
     if (isPseudoLiteral(literal)) {
         if (literal == "nan" || literal == "nanf") {
             std::cout << "char: impossible" << std::endl;
@@ -48,7 +46,6 @@ void ScalarConverter::convert(const std::string& literal) {
         return;
     }
 
-    // Try to convert to double first
     char* end;
     double value = std::strtod(literal.c_str(), &end);
 
@@ -60,7 +57,6 @@ void ScalarConverter::convert(const std::string& literal) {
         return;
     }
 
-    // Print as char, int, float, and double
     printChar(value);
     printInt(value);
     printFloat(value);

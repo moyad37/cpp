@@ -6,7 +6,7 @@
 /*   By: mmanssou <mmanssou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 13:33:35 by mmanssou          #+#    #+#             */
-/*   Updated: 2024/09/06 21:31:27 by mmanssou         ###   ########.fr       */
+/*   Updated: 2024/09/12 19:38:22 by mmanssou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ int main() {
     std::cout << "Original Data:" << std::endl;
     std::cout << "Name: " << data.name << ", Age: " << data.age << std::endl;
 
-    unsigned long raw = Serializer::serialize(&data);
-    std::cout << "Serialized data (unsigned long): " << raw << std::endl;
+    uintptr_t raw = Serializer::serialize(&data);
+    std::cout << "Serialized data (uintptr_t): " << raw << std::endl;
 
     Data* deserializedData = Serializer::deserialize(raw);
 

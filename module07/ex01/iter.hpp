@@ -1,22 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Base.hpp                                           :+:      :+:    :+:   */
+/*   iter.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmanssou <mmanssou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/05 13:57:23 by mmanssou          #+#    #+#             */
-/*   Updated: 2024/09/12 20:03:07 by mmanssou         ###   ########.fr       */
+/*   Created: 2024/09/09 20:06:30 by mmanssou          #+#    #+#             */
+/*   Updated: 2024/09/09 20:06:34 by mmanssou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BASE_HPP
-#define BASE_HPP
+#ifndef ITER_HPP
+#define ITER_HPP
 
-class Base {
-public:
-    virtual ~Base();
-    virtual void identify() const = 0;
-};
+
+template <typename T, typename F>
+void iter(T* array, int length, F func) {
+    for (int i = 0; i < length; i++) {
+        func(array[i]);
+    }
+}
 
 #endif

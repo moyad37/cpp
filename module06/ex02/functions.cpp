@@ -6,7 +6,7 @@
 /*   By: mmanssou <mmanssou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 13:58:55 by mmanssou          #+#    #+#             */
-/*   Updated: 2024/09/06 21:47:39 by mmanssou         ###   ########.fr       */
+/*   Updated: 2024/09/12 20:01:11 by mmanssou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 #include "B.hpp"
 #include "C.hpp"
 #include <iostream>
-#include <cstdlib> // für rand() und srand()
-#include <ctime>   // für time()
+#include <cstdlib>
+#include <ctime>
 
 Base* generate(void) {
-    // Initialisiere den Zufallszahlengenerator
+
     srand(static_cast<unsigned int>(time(0)));
     
     int random = rand();
@@ -33,10 +33,32 @@ Base* generate(void) {
 }
 
 void identify(Base* p) {
-    if (p)
-        p->identify();
+    if (dynamic_cast<A *>(p))
+        std::cout << "Type A" << std::endl;
+    else if (dynamic_cast<B *>(p))
+        std::cout << "Type B" << std::endl;    
+    else if (dynamic_cast<C *>(p))
+        std::cout << "Type C" << std::endl;     
+    else
+        std::cout << "unknown Type" << std::endl;
+        
 }
-
+        
 void identify(Base& p) {
-    p.identify();
+    try {
+        (void)dynamic_cast<A&>(p);
+        std::cout << "Type A" << std::endl;
+    } catch (const std::exception&) {
+        try {
+            (void)dynamic_cast<B&>(p);
+            std::cout << "Type B" << std::endl;
+        } catch (const std::exception&) {
+            try {
+                (void)dynamic_cast<C&>(p);
+                std::cout << "Type C" << std::endl;
+            } catch (const std::exception&) {
+                std::cout << "unknown Type" << std::endl;
+            }
+        }
+    }
 }
