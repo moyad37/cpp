@@ -6,7 +6,7 @@
 /*   By: mmanssou <mmanssou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 20:19:45 by mmanssou          #+#    #+#             */
-/*   Updated: 2024/09/25 14:34:32 by mmanssou         ###   ########.fr       */
+/*   Updated: 2024/09/25 22:35:34 by mmanssou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,8 @@ int main() {
     // Sicherstellen, dass die Grenzen überprüft werden
     try {
         for (int i = 0; i != MAX_VAL; i++) {
-            tab1[34] = 'A' + i; // Innerhalb der Grenzen
+            tab1[i] = 'A' + i; // Innerhalb der Grenzen
         }
-
-        // Versuch, außerhalb der Grenzen zuzugreifen
        
     }
     catch (const Array<char>::OutOfBoundsException& e) {
