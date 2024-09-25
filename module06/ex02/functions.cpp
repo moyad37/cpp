@@ -6,7 +6,7 @@
 /*   By: mmanssou <mmanssou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 13:58:55 by mmanssou          #+#    #+#             */
-/*   Updated: 2024/09/12 20:01:11 by mmanssou         ###   ########.fr       */
+/*   Updated: 2024/09/18 17:24:56 by mmanssou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,7 @@ void identify(Base* p) {
     else if (dynamic_cast<C *>(p))
         std::cout << "Type C" << std::endl;     
     else
-        std::cout << "unknown Type" << std::endl;
-        
+        std::cout << "unknown Type" << std::endl; 
 }
         
 void identify(Base& p) {
