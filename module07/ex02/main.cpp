@@ -6,7 +6,7 @@
 /*   By: mmanssou <mmanssou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 20:19:45 by mmanssou          #+#    #+#             */
-/*   Updated: 2024/09/25 22:35:34 by mmanssou         ###   ########.fr       */
+/*   Updated: 2024/10/03 15:56:57 by mmanssou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,21 +20,18 @@
 int main() {
     Array<char> tab1(MAX_VAL);
 
-    // Sicherstellen, dass die Grenzen überprüft werden
     try {
         for (int i = 0; i != MAX_VAL; i++) {
-            tab1[i] = 'A' + i; // Innerhalb der Grenzen
+            tab1[i] = 'A' + i; 
         }
        
     }
     catch (const Array<char>::OutOfBoundsException& e) {
-        std::cerr << "Error: " << e.what() << std::endl;  // Gibt eine Fehlermeldung zurück
+        std::cerr << "Error: " << e.what() << std::endl; 
     }
 
-    // Weiter mit dem normalen Programmablauf
     Array<char> copy1 = tab1;
 
-    // Ausgabe der Werte
     for (int i = 0; i != MAX_VAL; i++) {
         std::cout << "tab1[" << i << "] = " << tab1[i] << std::endl;
         std::cout << "copy1[" << i << "] = " << copy1[i] << std::endl;
@@ -42,14 +39,12 @@ int main() {
 
     std::cout << std::endl;
 
-    // Ändere das Original und überprüfe, ob die Kopie nicht betroffen ist
     for (int i = 0; i != MAX_VAL; i++) {
         tab1[i] = 'a' + i;
     }
 
     Array<char> copy2 = tab1;
 
-    // Ausgabe der Werte nach Änderungen
     for (int i = 0; i != MAX_VAL; i++) {
         std::cout << "tab1[" << i << "] = " << tab1[i] << std::endl;
         std::cout << "copy1[" << i << "] = " << copy1[i] << std::endl;
