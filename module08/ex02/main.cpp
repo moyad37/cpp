@@ -1,3 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.cpp                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mmanssou <mmanssou@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/09 19:34:27 by mmanssou          #+#    #+#             */
+/*   Updated: 2024/10/09 19:34:28 by mmanssou         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+
 #include <iostream>
 #include "MutantStack.hpp"
 
@@ -6,24 +19,22 @@ int main() {
 
     mstack.push(5);
     mstack.push(17);
-    std::cout << mstack.top() << std::endl; // Output: 17
+    std::cout << "##" << mstack.top() << std::endl;
     mstack.pop();
-    std::cout << mstack.size() << std::endl; // Output: 1
+    std::cout << "##"  << mstack.size() << std::endl; 
     mstack.push(3);
     mstack.push(5);
     mstack.push(737);
     mstack.push(0);
 
-    // Using iterators to print the contents of the stack
+
     MutantStack<int>::iterator it = mstack.begin();
     MutantStack<int>::iterator ite = mstack.end();
     
-    ++it; // Move iterator forward
-    --it; // Move iterator backward
 
     while (it != ite) {
-        std::cout << *it << std::endl; // Output the elements
-        ++it; // Increment the iterator
+        std::cout << *it << std::endl;
+        ++it;
     }
 
     std::stack<int> s(mstack); // Copying MutantStack to std::stack

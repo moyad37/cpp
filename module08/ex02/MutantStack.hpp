@@ -1,3 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   MutantStack.hpp                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mmanssou <mmanssou@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/09 19:34:38 by mmanssou          #+#    #+#             */
+/*   Updated: 2024/10/09 19:34:39 by mmanssou         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+
+
 #ifndef MUTANTSTACK_HPP
 #define MUTANTSTACK_HPP
 
@@ -8,21 +22,21 @@
 template <typename T>
 class MutantStack : public std::stack<T> {
 public:
-    // Constructor that forwards to std::stack
+
     MutantStack() : std::stack<T>() {}
     MutantStack(const MutantStack& other) : std::stack<T>(other) {} // Copy constructor
     MutantStack& operator=(const MutantStack& other) {
-        std::stack<T>::operator=(other); // Assignment operator
+        std::stack<T>::operator=(other);
         return *this;
     }
 
     // Define the iterator types
-    typedef typename std::deque<T>::iterator iterator; // You can also use std::vector if needed
+    typedef typename std::deque<T>::iterator iterator;
     typedef typename std::deque<T>::const_iterator const_iterator;
 
-    // Begin and end methods for iterators
+
     iterator begin() {
-        return this->c.begin(); // Access the underlying container
+        return this->c.begin();
     }
 
     iterator end() {
