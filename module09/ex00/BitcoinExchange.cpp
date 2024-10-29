@@ -103,26 +103,309 @@
 // }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// #include "BitcoinExchange.hpp"
+
+// // Konstruktor lädt die Datenbank aus der CSV-Datei
+// BitcoinExchange::BitcoinExchange(const std::string& dbFile) {
+//     if (!parseDatabase(dbFile)) {
+//         std::cerr << "Error: could not open or parse data file." << std::endl;
+//     }
+// }
+
+// // Destruktor
+// BitcoinExchange::~BitcoinExchange() {}
+
+// // Liest und analysiert die CSV-Datenbank
+// bool BitcoinExchange::parseDatabase(const std::string& dbFile) {
+//     std::ifstream file(dbFile);
+//     if (!file.is_open()) {
+//         return false;
+//     }
+//     std::string line;
+//     std::getline(file, line); // Kopfzeile ignorieren
+//     while (std::getline(file, line)) {
+//         std::istringstream ss(line);
+//         std::string date;
+//         std::string rate;
+//         if (std::getline(ss, date, ',') && std::getline(ss, rate)) {
+//             try {
+//                 float exchangeRate = std::stof(rate);
+//                 _data[date] = exchangeRate;
+//             } catch (const std::exception&) {
+//                 std::cerr << "Error: invalid format in data file." << std::endl;
+//                 return false;
+//             }
+//         }
+//     }
+//     file.close();
+//     return true;
+// }
+
+// // Überprüft, ob eine Datei existiert und analysiert wird
+// bool BitcoinExchange::processInput(const std::string& inputFile) {
+//     std::ifstream file(inputFile);
+//     if (!file.is_open()) {
+//         std::cerr << "Error: could not open file." << std::endl;
+//         return false;
+//     }
+//     std::string line;
+//     std::getline(file, line); // Kopfzeile ignorieren
+//     while (std::getline(file, line)) {
+//         std::istringstream ss(line);
+//         std::string date;
+//         std::string valueStr;
+//         if (std::getline(ss, date, '|') && std::getline(ss, valueStr)) {
+//             date.erase(date.find_last_not_of(" \t\n\r\f\v") + 1); // trim
+//             valueStr.erase(0, valueStr.find_first_not_of(" \t\n\r\f\v"));
+            
+//             try {
+//                 float value = std::stof(valueStr);
+//                 if (value < 0) {
+//                     std::cerr << "Error: not a positive number." << std::endl;
+//                 } 
+//                 else if (value > 1000) {
+//                     std::cerr << "Error: too large a number." << std::endl;
+//                 } 
+//                 else if (!isValidDate(date)) {
+//                     std::cerr << "Error: bad input => " << date << std::endl;
+//                 } else {
+//                     std::string closestDate = findClosestDate(date);
+//                     if (closestDate.empty()) {
+//                         std::cerr << "Error: no matching date in database." << std::endl;
+//                     } else {
+//                         float exchangeRate = _data[closestDate];
+//                         std::cout << date << " => " << value << " = " << value * exchangeRate << std::endl;
+//                     }
+//                 }
+//             } catch (const std::exception&) {
+//                 std::cerr << "Error: bad input => " << line << std::endl;
+//             }
+//         }
+//     }
+//     file.close();
+//     return true;
+// }
+
+// // Überprüft, ob das Datum korrekt formatiert ist und gültig ist
+// bool BitcoinExchange::isValidDate(const std::string& date) {
+//     std::istringstream ss(date);
+//     std::string yearStr, monthStr, dayStr;
+//     if (std::getline(ss, yearStr, '-') && std::getline(ss, monthStr, '-') && std::getline(ss, dayStr)) {
+//         int year = std::stoi(yearStr);
+//         int month = std::stoi(monthStr);
+//         int day = std::stoi(dayStr);
+
+//         if (year < 2009 || month < 1 || month > 12 || day < 1 || day > 31) {
+//             return false;
+//         }
+//         if (month == 2) {
+//             if (isLeapYear(year)) {
+//                 return day <= 29;
+//             } else {
+//                 return day <= 28;
+//             }
+//         }
+//         if (month == 4 || month == 6 || month == 9 || month == 11) {
+//             return day <= 30;
+//         }
+//         return true;
+//     }
+//     return false;
+// }
+
+// // Überprüft, ob das Jahr ein Schaltjahr ist
+// bool BitcoinExchange::isLeapYear(int year) {
+//     if (year % 4 == 0) {
+//         if (year % 100 == 0) {
+//             return (year % 400 == 0);
+//         }
+//         return true;
+//     }
+//     return false;
+// }
+
+// // Sucht das nächstniedrigere Datum in der Datenbank
+// std::string BitcoinExchange::findClosestDate(const std::string& date) {
+//     std::map<std::string, float>::iterator it = _data.lower_bound(date);
+//     if (it == _data.end() || it->first != date) {
+//         if (it == _data.begin()) {
+//             return "";
+//         }
+//         --it;
+//     }
+//     return it->first;
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #include "BitcoinExchange.hpp"
 
-// Konstruktor lädt die Datenbank aus der CSV-Datei
+// Default Constructor
+BitcoinExchange::BitcoinExchange() = default;
+
+// Parameterized Constructor: loads the database from the CSV file
 BitcoinExchange::BitcoinExchange(const std::string& dbFile) {
     if (!parseDatabase(dbFile)) {
         std::cerr << "Error: could not open or parse data file." << std::endl;
     }
 }
 
-// Destruktor
-BitcoinExchange::~BitcoinExchange() {}
+// Copy Constructor
+BitcoinExchange::BitcoinExchange(const BitcoinExchange& other) : _data(other._data) {}
 
-// Liest und analysiert die CSV-Datenbank
+// Copy Assignment Operator
+BitcoinExchange& BitcoinExchange::operator=(const BitcoinExchange& other) {
+    if (this != &other) { // Self-assignment check
+        _data = other._data;
+    }
+    return *this;
+}
+
+// Move Constructor
+BitcoinExchange::BitcoinExchange(BitcoinExchange&& other) noexcept : _data(std::move(other._data)) {}
+
+// Move Assignment Operator
+BitcoinExchange& BitcoinExchange::operator=(BitcoinExchange&& other) noexcept {
+    if (this != &other) { // Self-assignment check
+        _data = std::move(other._data);
+    }
+    return *this;
+}
+
+// Destructor
+BitcoinExchange::~BitcoinExchange() = default;
+
+// Reads and parses the CSV database
 bool BitcoinExchange::parseDatabase(const std::string& dbFile) {
     std::ifstream file(dbFile);
     if (!file.is_open()) {
         return false;
     }
     std::string line;
-    std::getline(file, line); // Kopfzeile ignorieren
+    std::getline(file, line); // Ignore header line
     while (std::getline(file, line)) {
         std::istringstream ss(line);
         std::string date;
@@ -141,7 +424,7 @@ bool BitcoinExchange::parseDatabase(const std::string& dbFile) {
     return true;
 }
 
-// Überprüft, ob eine Datei existiert und analysiert wird
+// Checks if an input file exists and processes it
 bool BitcoinExchange::processInput(const std::string& inputFile) {
     std::ifstream file(inputFile);
     if (!file.is_open()) {
@@ -149,15 +432,15 @@ bool BitcoinExchange::processInput(const std::string& inputFile) {
         return false;
     }
     std::string line;
-    std::getline(file, line); // Kopfzeile ignorieren
+    std::getline(file, line); // Ignore header line
     while (std::getline(file, line)) {
         std::istringstream ss(line);
         std::string date;
         std::string valueStr;
         if (std::getline(ss, date, '|') && std::getline(ss, valueStr)) {
-            date.erase(date.find_last_not_of(" \t\n\r\f\v") + 1); // trim
+            date.erase(date.find_last_not_of(" \t\n\r\f\v") + 1); // Trim whitespace
             valueStr.erase(0, valueStr.find_first_not_of(" \t\n\r\f\v"));
-            
+
             try {
                 float value = std::stof(valueStr);
                 if (value < 0) {
@@ -186,7 +469,7 @@ bool BitcoinExchange::processInput(const std::string& inputFile) {
     return true;
 }
 
-// Überprüft, ob das Datum korrekt formatiert ist und gültig ist
+// Checks if the date is correctly formatted and valid
 bool BitcoinExchange::isValidDate(const std::string& date) {
     std::istringstream ss(date);
     std::string yearStr, monthStr, dayStr;
@@ -213,7 +496,7 @@ bool BitcoinExchange::isValidDate(const std::string& date) {
     return false;
 }
 
-// Überprüft, ob das Jahr ein Schaltjahr ist
+// Checks if the year is a leap year
 bool BitcoinExchange::isLeapYear(int year) {
     if (year % 4 == 0) {
         if (year % 100 == 0) {
@@ -224,9 +507,9 @@ bool BitcoinExchange::isLeapYear(int year) {
     return false;
 }
 
-// Sucht das nächstniedrigere Datum in der Datenbank
+// Finds the closest date in the database
 std::string BitcoinExchange::findClosestDate(const std::string& date) {
-    std::map<std::string, float>::iterator it = _data.lower_bound(date);
+    auto it = _data.lower_bound(date);
     if (it == _data.end() || it->first != date) {
         if (it == _data.begin()) {
             return "";
