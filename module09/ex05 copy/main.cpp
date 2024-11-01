@@ -10,11 +10,11 @@ int main(int argc, char **argv) {
 
     displayArguments(argv);
 
-    clock_t startTime = clock();
-    if (processVector(argv, startTime) != 0) return 1;
-    startTime = clock() - startTime;
 
-    if (processDeque(argv, startTime) != 0) return 1;
+    if (processVector(argv) != 0) return 1;
+
+
+    if (processDeque(argv) != 0) return 1;
 
     return 0;
 }
