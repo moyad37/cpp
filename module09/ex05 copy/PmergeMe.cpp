@@ -217,12 +217,20 @@
 // }
 
 
+
+
+
+
+
+
+
 #include <iostream>
-#include <vector>
 #include <deque>
+#include <vector>
 #include <cstdlib>
 #include <ctime>
 #include <limits>  // Für std::numeric_limits
+#include "PmergeMe.hpp"
 
 // Parse input arguments
 int parseInput(char** argv) {
@@ -246,8 +254,8 @@ void displayArguments(char** argv) {
     std::cout << std::endl;
 }
 
-// Display sorting results for std::vector
-void displayResult(const std::vector<int>& container, const std::string& type, long time) {
+// Display sorting results for std::deque
+void displayResult(const std::deque<int>& container, const std::string& type, long time) {
     std::cout << "After (" << type << "): ";
     for (size_t i = 0; i < container.size(); ++i) {
         std::cout << container[i] << " ";
@@ -256,8 +264,8 @@ void displayResult(const std::vector<int>& container, const std::string& type, l
               << time << " us" << std::endl;
 }
 
-// Display sorting results for std::deque
-void displayResult(const std::deque<int>& container, const std::string& type, long time) {
+// Display sorting results for std::vector
+void displayResult(const std::vector<int>& container, const std::string& type, long time) {
     std::cout << "After (" << type << "): ";
     for (size_t i = 0; i < container.size(); ++i) {
         std::cout << container[i] << " ";
@@ -333,17 +341,85 @@ void mergeInsertionSortWithJacobsthal(std::vector<int>& vec, int left, int right
         j++;
     }
 
+    // Copy sorted elements from temp back to the original vector
     for (size_t k = 0; k < temp.size(); k++) {
         vec[left + k] = temp[k];
     }
 }
 
-// Ford-Johnson sorting with Jacobsthal number based merge for vectors
+// Merge-Insertion-Sort using Jacobsthal numbers for deque
+void mergeInsertionSortWithJacobsthalDeque(std::deque<int>& deque, int left, int right) {
+    int n = right - left + 1;
+
+    if (n <= 10) {
+        for (int i = left + 1; i <= right; i++) {
+            int key = deque[i];
+            int j = i - 1;
+            while (j >= left && deque[j] > key) {
+                deque[j + 1] = deque[j];
+                j--;
+            }
+            deque[j + 1] = key;
+        }
+        return;
+    }
+
+    int mid = left + (right - left) / 2;
+
+    mergeInsertionSortWithJacobsthalDeque(deque, left, mid);
+    mergeInsertionSortWithJacobsthalDeque(deque, mid + 1, right);
+
+    std::vector<int> jacobsthal = generateJacobsthalNumbers(right);
+
+    size_t jacobsthalIndex = 0;
+    std::deque<int> temp;
+    int i = left, j = mid + 1;
+
+    while (i <= mid && j <= right) {
+        if (jacobsthalIndex < jacobsthal.size()) {
+            int jumpIndex = jacobsthal[jacobsthalIndex];
+            if (jumpIndex < right) {
+                if (deque[i] <= deque[j]) {
+                    temp.push_back(deque[i]);
+                    i++;
+                } else {
+                    temp.push_back(deque[j]);
+                    j++;
+                }
+                jacobsthalIndex++;
+            } else {
+                break;
+            }
+        }
+    }
+
+    while (i <= mid) {
+        temp.push_back(deque[i]);
+        i++;
+    }
+
+    while (j <= right) {
+        temp.push_back(deque[j]);
+        j++;
+    }
+
+    // Copy sorted elements from temp back to the original deque
+    for (size_t k = 0; k < temp.size(); k++) {
+        deque[left + k] = temp[k];
+    }
+}
+
+// Ford-Johnson sorting for std::vector with Jacobsthal numbers
 void fordJohnsonSortVectorWithJacobsthal(std::vector<int>& vec) {
     mergeInsertionSortWithJacobsthal(vec, 0, vec.size() - 1);
 }
 
-// Process vector using Jacobsthal-based Ford-Johnson sort
+// Ford-Johnson sorting for std::deque with Jacobsthal numbers
+void fordJohnsonSortDequeWithJacobsthal(std::deque<int>& deque) {
+    mergeInsertionSortWithJacobsthalDeque(deque, 0, deque.size() - 1);
+}
+
+// Process std::vector with Jacobsthal numbers
 int processVector(char** argv) {
     std::vector<int> container;
     for (int i = 1; argv[i] != NULL; ++i) {
@@ -351,7 +427,7 @@ int processVector(char** argv) {
     }
 
     clock_t start = clock();  // Start time measurement
-    fordJohnsonSortVectorWithJacobsthal(container);  // Sort the vector
+    fordJohnsonSortVectorWithJacobsthal(container);  // Direct sorting of the std::vector
     clock_t end = clock();  // End time measurement
 
     long duration = (end - start) * 1000000 / CLOCKS_PER_SEC;  // Convert clock ticks to microseconds
@@ -360,7 +436,7 @@ int processVector(char** argv) {
     return 0;
 }
 
-// Process deque with Jacobsthal numbers
+// Process std::deque with Jacobsthal numbers
 int processDeque(char** argv) {
     std::deque<int> container;
     for (int i = 1; argv[i] != NULL; ++i) {
@@ -368,12 +444,11 @@ int processDeque(char** argv) {
     }
 
     clock_t start = clock();  // Start time measurement
-    std::vector<int> vec(container.begin(), container.end());  // Convert deque to vector
-    fordJohnsonSortVectorWithJacobsthal(vec);  // Sort the vector
+    fordJohnsonSortDequeWithJacobsthal(container);  // Direct sorting of the std::deque
     clock_t end = clock();  // End time measurement
 
     long duration = (end - start) * 1000000 / CLOCKS_PER_SEC;  // Convert clock ticks to microseconds
-    displayResult(vec, "std::deque with Jacobsthal", duration);  // Display results
+    displayResult(container, "std::deque with Jacobsthal", duration);  // Display results
 
     return 0;
 }
