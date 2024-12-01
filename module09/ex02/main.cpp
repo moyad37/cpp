@@ -1,61 +1,50 @@
 #include "PmergeMe.hpp"
-#include <ctime>  // for clock_t, clock(), CLOCKS_PER_SEC
 
-int main(int argc, char** argv)
-{
-    if (argc < 2)
-    {
-        std::cerr << "Usage: ./PmergeMe <positive integers>" << std::endl;
+bool areInputsSorted(char** argv) {
+    for (int i = 1; argv[i + 1] != NULL; ++i) {
+        int current = std::strtol(argv[i], NULL, 10);
+        int next = std::strtol(argv[i + 1], NULL, 10);
+
+        // Überprüfen, ob die Zahlen gültige positive Zahlen sind
+        if (current <= 0 || next <= 0) {
+            std::cerr << "Error: \"" << argv[i] << "\" or \"" << argv[i + 1] << "\" is not a valid positive integer greater than 0." << std::endl;
+            return false;
+        }
+
+        // Überprüfen, ob die Zahlen sortiert sind
+        if (current > next) {
+            return false;
+        }
+    }
+    return true;
+}
+int main(int argc, char **argv) {
+    if (argc < 2) {
+        std::cerr << "Not enough arguments." << std::endl;
         return 1;
     }
 
-    PmergeMe sorter;
-
-    // Containers to hold the input sequence
-    std::vector<int> vec;
-    std::deque<int> deq;
-
-    // Parsing command line arguments and filling the containers
-    for (int i = 1; i < argc; ++i)
-    {
-        int num;
-        std::stringstream ss(argv[i]);
-        if (!(ss >> num) || num <= 0)  // Ensure input is a positive integer
-        {
-            std::cerr << "Error: invalid input, only positive integers are allowed." << std::endl;
-            return 1;
-        }
-        vec.push_back(num);
-        deq.push_back(num);
+    if (argc == 2) {
+        std::cerr << "Error: only one argument provided." << std::endl;
+        return 1;
     }
 
-    // Display the unsorted input sequence
-    std::cout << "Before: ";
-    for (size_t i = 0; i < vec.size(); ++i)
-        std::cout << vec[i] << (i < vec.size() - 1 ? " " : "");
-    std::cout << std::endl;
+    // Prüfen, ob alle Eingabewerte gültige positive Zahlen sind
+    if (parseInput(argv) != 0) return 1;
 
-    // Measure time for vector sorting
-    clock_t start_vec = clock();
-    sorter.mergeInsertSort(vec);
-    clock_t end_vec = clock();
-    double timeUsedVector = static_cast<double>(end_vec - start_vec) / CLOCKS_PER_SEC;
+    // Überprüfen, ob die Eingaben sortiert sind
+    if (areInputsSorted(argv)) {
+        std::cout << "Is Sorted." << std::endl;
+        return 0;
+    }
 
-    // Measure time for deque sorting
-    clock_t start_deq = clock();
-    sorter.mergeInsertSort(deq);
-    clock_t end_deq = clock();
-    double timeUsedDeque = static_cast<double>(end_deq - start_deq) / CLOCKS_PER_SEC;
+    displayArguments(argv);
 
-    // Display the sorted sequence
-    std::cout << "After: ";
-    for (size_t i = 0; i < vec.size(); ++i)
-        std::cout << vec[i] << (i < vec.size() - 1 ? " " : "");
-    std::cout << std::endl;
+    // Verarbeitung mit Vector
+    if (processVector(argv) != 0) return 1;
 
-    // Display time results
-    sorter.displayResults("std::vector", timeUsedVector);
-    sorter.displayResults("std::deque", timeUsedDeque);
+    // Verarbeitung mit Deque
+    if (processDeque(argv) != 0) return 1;
 
     return 0;
 }

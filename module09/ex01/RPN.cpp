@@ -1,112 +1,24 @@
-// #include "RPN.hpp"
-// #include <sstream>
-
-// // Konstruktor
-// RPN::RPN() {}
-
-// // Destruktor
-// RPN::~RPN() {}
-
-// // Überprüft, ob ein Token ein Operator ist
-// bool RPN::isOperator(const std::string& token) const {
-//     return (token == "+" || token == "-" || token == "*" || token == "/");
-// }
-
-// // Führt die Operation auf den obersten zwei Elementen des Stacks durch
-// bool RPN::performOperation(const std::string& operatorToken) {
-//     if (_stack.size() < 2) {
-//         std::cerr << "Error: insufficient values for operation." << std::endl;
-//         return false;
-//     }
-
-//     int b = _stack.top();
-//     _stack.pop();
-//     int a = _stack.top();
-//     _stack.pop();
-    
-//     if (operatorToken == "+") {
-//         _stack.push(a + b);
-//     } else if (operatorToken == "-") {
-//         _stack.push(a - b);
-//     } else if (operatorToken == "*") {
-//         _stack.push(a * b);
-//     } else if (operatorToken == "/") {
-//         if (b == 0) {
-//             std::cerr << "Error: division by zero." << std::endl;
-//             return false;
-//         }
-//         _stack.push(a / b);
-//     } else {
-//         std::cerr << "Error: invalid operator." << std::endl;
-//         return false;
-//     }
-
-//     return true;
-// }
-
-// // String zu Integer konvertieren
-// int stringToInt(const std::string& token) {
-//     std::stringstream ss(token);
-//     int number;
-//     ss >> number;
-//     return number;
-// }
-
-// // Bewertet den RPN-Ausdruck
-// bool RPN::evaluate(const std::string& expression) {
-//     std::istringstream iss(expression);
-//     std::string token;
-
-//     while (iss >> token) {
-//         if (isdigit(token[0])) {
-//             // Zahl auf den Stack pushen
-//             _stack.push(stringToInt(token));
-//         } else if (isOperator(token)) {
-//             // Operation durchführen
-//             if (!performOperation(token)) {
-//                 return false;
-//             }
-//         } else {
-//             std::cerr << "Error: invalid token." << std::endl;
-//             return false;
-//         }
-//     }
-
-//     if (_stack.size() != 1) {
-//         std::cerr << "Error: invalid expression." << std::endl;
-//         return false;
-//     }
-
-//     // Ausgabe des Ergebnisses
-//     std::cout << _stack.top() << std::endl;
-//     return true;
-// }
 #include "RPN.hpp"
 #include <sstream>
+#include <cctype> // for isdigit
 
-// Default Constructor
 RPN::RPN() {}
 
-// Copy Constructor
 RPN::RPN(const RPN& other) : _stack(other._stack) {}
 
-// Copy Assignment Operator
 RPN& RPN::operator=(const RPN& other) {
-    if (this != &other) { // Self-assignment check
+    if (this != &other) {
         _stack = other._stack;
     }
     return *this;
 }
 
-// Destructor
 RPN::~RPN() {}
 
-// Überprüft, ob ein Token ein Operator ist
 bool RPN::isOperator(const std::string& token) const {
     return (token == "+" || token == "-" || token == "*" || token == "/");
 }
 
-// Führt die Operation auf den obersten zwei Elementen des Stacks durch
 bool RPN::performOperation(const std::string& operatorToken) {
     if (_stack.size() < 2) {
         std::cerr << "Error: insufficient values for operation." << std::endl;
@@ -117,7 +29,7 @@ bool RPN::performOperation(const std::string& operatorToken) {
     _stack.pop();
     int a = _stack.top();
     _stack.pop();
-    
+
     if (operatorToken == "+") {
         _stack.push(a + b);
     } else if (operatorToken == "-") {
@@ -138,7 +50,6 @@ bool RPN::performOperation(const std::string& operatorToken) {
     return true;
 }
 
-// String zu Integer konvertieren
 int stringToInt(const std::string& token) {
     std::stringstream ss(token);
     int number;
@@ -146,17 +57,25 @@ int stringToInt(const std::string& token) {
     return number;
 }
 
-// Bewertet den RPN-Ausdruck
+bool RPN::isValidNumber(const std::string& token) const {
+    // Check if the token is a single digit
+    if (token.size() != 1 || !isdigit(token[0])) {
+        return false;
+    }
+
+    // Convert token to an integer and check the range
+    int number = token[0] - '0';
+    return number >= 0 && number <= 9;
+}
+
 bool RPN::evaluate(const std::string& expression) {
     std::istringstream iss(expression);
     std::string token;
 
     while (iss >> token) {
-        if (isdigit(token[0])) {
-            // Zahl auf den Stack pushen
+        if (isValidNumber(token)) {
             _stack.push(stringToInt(token));
         } else if (isOperator(token)) {
-            // Operation durchführen
             if (!performOperation(token)) {
                 return false;
             }
@@ -171,7 +90,6 @@ bool RPN::evaluate(const std::string& expression) {
         return false;
     }
 
-    // Ausgabe des Ergebnisses
     std::cout << _stack.top() << std::endl;
     return true;
 }

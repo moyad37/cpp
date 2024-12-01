@@ -1,21 +1,20 @@
-CXX = c++
-CXXFLAGS = -Wall -Wextra -Werror -std=c++98
+
 
 NAME = PmergeMe
-SRC = main.cpp PmergeMe.cpp
-OBJ = $(SRC:.cpp=.o)
+CC = c++
+CFLAGS = -Wall -Wextra -Werror -std=c++98
+SRCS = main.cpp PmergeMe.cpp
+OBJS = $(SRCS:.cpp=.o)
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
-	$(CXX) $(CXXFLAGS) -o $(NAME) $(OBJ)
+$(NAME): $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
 
 clean:
-	rm -f $(OBJ)
+	rm -f $(OBJS)
 
 fclean: clean
 	rm -f $(NAME)
 
 re: fclean all
-
-.PHONY: all clean fclean re
